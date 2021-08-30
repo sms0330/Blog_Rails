@@ -1,0 +1,18 @@
+<% if @post.errors.any? %>
+    <div class="card-body">>
+        <% @post.errors.full_messages.each do |msg| %>
+            <p class="message"><%=msg%><p>
+        <% end %>
+    </div>
+<% end %>
+<%= form_with model: @post, local: true do |form| %>
+    <div class="card-body">
+       <%= form.label :title, "Title"%>
+       <%= form.text_field :title, style:"width:100%;"%><br>
+    </div>
+    <div class="card-body">
+        <%= form.label :body %>
+        <%= form.text_area :body, style:"width:100%;", rows:3 %><br>
+    </div>
+    <div class="button"><%= form.submit class: "btn btn-outline-primary" %></div>
+<% end %>

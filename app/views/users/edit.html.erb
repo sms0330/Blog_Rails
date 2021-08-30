@@ -1,0 +1,21 @@
+<h1>Edit User</h1>
+
+<% if @user.errors.any? %>
+    <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg%></li>
+        <% end %>
+    <ul>
+<% end %>
+<%= form_with model: @user, local: true do |f| %>
+    <div>
+        <%= f.label :name%>
+        <%= f.text_field :name%>
+    </div>
+    <div>
+        <%= f.label :email%>
+        <%= f.email_field :email%>
+    </div>
+    <%= f.submit%>
+<% end %> 
+<%= link_to "Change Password", edit_password_path(current_user.id)%>
