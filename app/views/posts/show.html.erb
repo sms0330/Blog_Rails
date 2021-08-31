@@ -1,4 +1,21 @@
 <h1><%= @post.title%></h1>
+    <small>Favourited by: <%= @post.favourites.count %> users</small>
+    <% if @post.favourites.find_by(user: current_user).present?  && can?(:destroy, @post.favourites.find_by(user: current_user)) %>
+      <%= link_to(
+        "💔 Unfavourites",
+        favourite_path(@post.favourites.find_by(user: current_user)), 
+        class:"btn btn-outline-warning",
+        method: :delete
+        ) %>
+      <% else can?(:favourites, @post) %>
+      <%= link_to(
+              "💖 favourites",
+              post_favourites_path(@post),
+              class:"btn btn-outline-danger",
+              method: :post
+        ) %>
+      <% end %>
+   
 <p><%= image_tag("#{@post.image}") %></p>
 <p><%= @post.body %></p>
 <div>
@@ -15,8 +32,6 @@
     <% end %>
     </div>
 </div>
-
-
 <div class="comment-input">
     <h3>Comments</h3>
     <%= form_with model: [@post, @comment], local:true do |form| %>

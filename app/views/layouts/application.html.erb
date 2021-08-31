@@ -12,21 +12,21 @@
     <nav class="navbar navbar-light bg-light">
       <span class="nav-left">
         <div class="navbar-brand"><%= link_to "Blog On Rails", posts_path%></div>
+          <% if user_signed_in? %>
+            Hello <%= link_to current_user.name, edit_user_path(current_user.id) %>,
+            <%= link_to "Logout", session_path, method: :delete, data: {confirm: "are you sure you want to log out?"}%>
+          <% else %>
+            <%= link_to "Login", new_session_path %> |
+            <%= link_to "Sign Up", new_user_path %>
+          <% end %>
       </span>
 
       <span class="nav justify-content-end">
         <div class="nav-item"><%= link_to "Home", posts_path %></div>
+        <div class="nav-item"><%= link_to 'Favourited Posts', favourited_posts_path %></div>
         <div class="nav-item"><%= link_to "New Post", new_post_path %></div>
       </span>
     </nav>
-
-    <% if user_signed_in? %>
-      Hello <%= link_to current_user.name, edit_user_path(current_user.id) %>,
-      <%= link_to "Logout", session_path, method: :delete, data: {confirm: "are you sure you want to log out?"}%>
-    <% else %>
-      <%= link_to "Login", new_session_path %> |
-      <%= link_to "Sign Up", new_user_path %>
-    <% end %>
     <hr>
     <div>
       <%= render 'layouts/alerts' %>

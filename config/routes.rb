@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments
+    resources :favourites, shallow: true, only: [:create, :destroy]
+    get :favourited, on: :collection
   end
 
   resources :users, only: [:new, :create, :edit, :update]

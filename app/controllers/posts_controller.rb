@@ -42,6 +42,10 @@ class PostsController < ApplicationController
       end
   end
 
+  def favourited
+    @posts = current_user.favourited_posts.order(created_at: :desc)
+  end
+
   private
 
   def post_params
