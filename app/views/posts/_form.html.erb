@@ -14,5 +14,9 @@
         <%= form.label :body %>
         <%= form.text_area :body, style:"width:100%;", rows:3 %><br>
     </div>
+    <div class="card-body">
+        <%= form.label :image %>
+        <%= form.file_field :image, accept: 'image/png,image/gif,image/jpeg', style:"width:100%;"%><br>
+    </div>
     <div class="button"><%= form.submit class: "btn btn-outline-primary" %></div>
 <% end %>

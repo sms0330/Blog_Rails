@@ -4,6 +4,7 @@
         <div class="col-lg-4 py-2">
             <div class="post-card">
                 <h3><%=link_to( post.title.truncate(30, separator: " "), post_path(post.id)) %></h3>
+                <div><%= image_tag("#{post.image.small}") %></div>
                 <div><%= post.body.truncate(50, separator: " ") %></div>
                 <div class="post-card-footer"></div>
             </div>
