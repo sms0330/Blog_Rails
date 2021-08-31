@@ -1,4 +1,7 @@
 <div class="container">
+    <% if params[:tag]%>
+        <p id="tag" class="btn btn-info btn-sm"><%= params[:tag]%></p>
+    <% end %>
     <div class="row">
        <% @posts.each do |post| %>
         <div class="col-lg-4 py-2">

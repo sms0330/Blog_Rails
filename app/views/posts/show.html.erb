@@ -1,4 +1,9 @@
 <h1><%= @post.title%></h1>
+    <strong>Tags:</strong>
+    <%@post.tags.each do |tag|%>
+        <p id="tag" class="btn btn-info btn-sm"><%= link_to tag.name, posts_path(tag: tag.name) %></p>
+    <% end %>
+    <br>
     <small>Favourited by: <%= @post.favourites.count %> users</small>
     <% if @post.favourites.find_by(user: current_user).present?  && can?(:destroy, @post.favourites.find_by(user: current_user)) %>
       <%= link_to(

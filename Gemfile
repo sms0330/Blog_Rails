@@ -17,8 +17,8 @@ gem 'webpacker', '~> 5.0'
 gem 'jbuilder', '~> 2.7'
 
 gem 'bootstrap', '~> 5.0.1'
-
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.4'
+gem 'popper_js', '~> 2.9', '>= 2.9.3'
 
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -42,6 +42,8 @@ gem 'faker'
 gem 'carrierwave', '~> 2.2', '>= 2.2.2'
 
 gem 'mini_magick', '~> 4.11'
+
+gem 'selectize-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

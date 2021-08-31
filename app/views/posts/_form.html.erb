@@ -18,5 +18,27 @@
         <%= form.label :image %>
         <%= form.file_field :image, accept: 'image/png,image/gif,image/jpeg', style:"width:100%;"%><br>
     </div>
+    <div class="card-body">
+        <%= form.label :tag_names %>
+        <%= form.text_field :tag_names %>
+    </div>
     <div class="button"><%= form.submit class: "btn btn-outline-primary" %></div>
 <% end %>
+<script>
+$(function(){
+    $('#post_tag_names').selectize({
+        delimeter: ',',
+        persist: false,
+        labelField: 'name', //Column name in db
+        valueField: 'name', //Column name in db
+        searchField: 'name', //Column name in db
+        options: <%= Tag.select(:name).to_json(except: [:id]).html_safe %>,
+        create: function(input) {
+            return {
+                name: input
+            }
+        }
+    })
+})
+</script> 
+

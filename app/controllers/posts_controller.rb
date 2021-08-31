@@ -4,7 +4,12 @@ class PostsController < ApplicationController
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.all.order(created_at: :desc)
+    if params[:tag]
+        @tag = Tag.find_or_initialize_by(name: params[:tag])
+        @posts = @tag.posts.all.order('updated_at DESC')
+    else
+        @posts = Post.all.order(created_at: :desc) 
+    end 
   end
   
   def new
@@ -49,7 +54,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-      params.require(:post).permit(:title, :body, :image)
+      params.require(:post).permit(:title, :body, :image, :tag_names)
   end
 
   def find_post_id
