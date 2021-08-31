@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root "posts#index"
 
   resources :posts do
-    resources :comments
+    resources :comments do
+      resources :likes, shallow: true, only: [:create, :destroy]
+    end
     resources :favourites, shallow: true, only: [:create, :destroy]
     get :favourited, on: :collection
   end

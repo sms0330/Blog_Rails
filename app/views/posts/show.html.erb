@@ -48,7 +48,26 @@
 
 <% @comments.each do |comment| %>
     <div class="comment">
-        <p class="comment-body"><%= comment.body %><p>
+        <p class="comment-body"><%= comment.body %>
+            <% if comment.likes.find_by(user: current_user).present?  && can?(:destroy, comment.likes.find_by(user: current_user)) %>
+            <%= link_to(
+                "👎 Unlike",
+                like_path(comment.likes.find_by(user: current_user)), 
+                class:"btn btn-danger ",
+                method: :delete
+                ) %>
+            <% else can?(:like, comment) %>
+            <%= link_to(
+                    "👍 Like",
+                    post_comment_likes_path(@post, comment),
+                    class:"btn btn-success ",
+                    method: :post
+                ) %>
+            <% end %>
+            <small>
+                (<%= pluralize(comment.likes.count, "likes") %>)
+            </small>
+        <p>
         <small>Commented <%= time_ago_in_words(comment.updated_at) %></small>
             <div> Commented by: <%= comment.user&.name || "Deleted" %>
         <% if can? :crud, comment %>

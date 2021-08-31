@@ -43,5 +43,20 @@ class Ability
     can :crud, Comment do |comment|
       comment.user == user
     end
+
+    can :favourite, Post do |post|
+      user.persisted? && user != post.user
+    end
+    can :destroy, Favourite do |favourite|
+      favourite.user == user
+    end
+
+    can :like, Comment do |comment|
+      user.persisted? && user != comment.user
+    end
+    can :destroy, Like do |like|
+      like.user == user
+    end
+
   end
 end
