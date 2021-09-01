@@ -16,5 +16,16 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do 
+      resources :posts
+      resource :session, only: [:create, :destroy]
+      resources :users, only: [:create] do
+        get :current, on: :collection
+      end
+    end
+    match "*unmatched_route", to: "application#not_found", via: :all
+  end
+
   
 end
