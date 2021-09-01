@@ -1,14 +1,1 @@
-<%= render 'form', post: @post %>
-
-  <% if @favourite %>
-        <%= link_to @favourite.is_favourite ? "Cancel Favourite" : "Cancel Unavourite", favourite_path(@favourite), class:"btn btn-light ", method: :delete%>
-    <% else%>
-        <%= form_with(url: post_favourites_path(@post), local: true) do |f| %>
-        <input type="hidden" name="is_favourite" value="true">
-        <%= f.submit "Favourite", class:"btn btn-info" %>
-        <% end %>
-        <%= form_with(url: post_favourites_path(@post), local: true) do |f| %>
-        <input type="hidden" name="is_favourite" value="false">
-        <%= f.submit "Unfavourite", class:"btn btn-dark" %>
-        <% end %>
-    <% end %>
+<%= render 'form', post: @post %>ß

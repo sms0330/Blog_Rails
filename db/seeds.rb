@@ -1,3 +1,6 @@
+Like.destroy_all
+Tagging.destroy_all
+Tag.destroy_all
 User.delete_all
 Post.destroy_all
 Comment.destroy_all
@@ -20,6 +23,16 @@ super_user=User.create(
 end
 users=User.all
 
+NUM_TAGS = 20
+
+NUM_TAGS.times do
+    Tag.create(
+        name: Faker::Vehicle.make
+    )
+end
+
+tags = Tag.all
+
 100.times do
     created_at = Faker::Date.backward(days:365 * 5)
         p = Post.create(
@@ -31,9 +44,11 @@ users=User.all
         )
         if p.valid?
             rand(1..10).times.map do
-                Comment.create(body: Faker::GreekPhilosophers.quote,  user: users.sample, post: p)
+            c = Comment.create(body: Faker::GreekPhilosophers.quote,  user: users.sample, post: p)
+            c.likers = users.shuffle.slice(0, rand(users.count))
             end
         end
+        p.tags = tags.shuffle.slice(0, rand(tags.count))
 end
 
 posts = Post.all
@@ -42,3 +57,6 @@ comments = Comment.all
 puts "Generated #{posts.count} posts"
 puts "Generated #{comments.count} comments"
 puts "Generated #{users.count} users"
+puts "Generated #{Like.count} likes"
+puts "Generated #{Tag.count} tags"
+puts "Login with #{super_user.email} and password: #{PASSWORD}"
